@@ -1,0 +1,69 @@
+<div class="container mt-5">
+  <div class="btn-group mb-3" role="group" aria-label="Basic example">
+    <a class="btn btn-primary" [routerLink]="['/home']">Home</a>
+  </div>
+
+  <div class="btn-group mb-3" role="group" aria-label="Basic example">
+    <a class="btn btn-primary" [routerLink]="['/datos']">Datos</a>
+  </div>
+
+
+  <div>
+    <label>
+      <input type="radio" name="filtroEstado" [(ngModel)]="filtroEstado" value="TODO">
+      Mostrar Todo</label>
+  </div>
+
+  <!-- Uso del componente radio-button
+  <app-radio-buttons
+    [totalEstudiantes]="totalEstudiantes()"
+    [totalAprobados]="totalAprobados()"
+    [totalReprobados]="totalReprobados()"
+    (contadorChange)="contadorEstudiantesButtonChange($event)"
+  ></app-radio-buttons>
+-->
+  <div class="row">
+    <div class="input-group">
+      <input type="text" [(ngModel)]="nombre" class="form-control form-control-lg" placeholder="Nombre">
+      <input type="text" [(ngModel)]="apellido" class="form-control form-control-lg" placeholder="Apellido">
+      <input type="number" [(ngModel)]="valor" class="form-control form-control-lg" placeholder="valor">
+      <input type="date" [(ngModel)]="fecha" class="form-control form-control-lg" placeholder="fecha">
+      <button class="btn btn-primary" (click)="agregarEstudiante()">Agregar</button>
+    </div>
+
+    <div class="text-center mt-3">
+      <div *ngIf="estudiantesService.listaEstudiantes.length===0" class="card p-2">
+        <h6>No hay Donantes registrados</h6>
+      </div>
+
+      <div>
+        <p>Suma de valores eliminados: {{ sumaValoresEliminados }}</p>
+      </div>
+
+      <table  *ngIf="estudiantesService.listaEstudiantes.length > 0" class="table table-light bdr">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Fecha</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let estudiante of estudiantesService.listaEstudiantes; let i=index" class="text-center">
+            <td scope="col">{{ estudiante.nombre }}</td>
+            <td>{{ estudiante.apellido }}</td>
+            <td>{{ estudiante.valor }}</td>
+            <td>{{ estudiante.fecha }}</td>
+            <td>
+              <span class="cursor text-danger" (click)="eliminarEstudiante(estudiante)">
+                <i class="bi bi-file-earmark-x-fill"></i>
+              </span>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
